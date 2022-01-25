@@ -58,7 +58,8 @@ export async function getExpressions(event: any) {
                 let found = false;
 
                 for(let i = 0; i < significados.length; i++) {
-                    const entrada = significados[i];
+                    const entrada = significados.pop();
+                    if(!entrada) return;
                     if (entrada[0] === "1" && !found) {
                         found = true;
                         event.reply(entrada);
