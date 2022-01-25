@@ -44,16 +44,16 @@ export async function getExpressions(event: any) {
             const expresiones: string[] = []
 
             $(".k6").each(() => {
-                expresiones.push($.text());
+                expresiones.push($().text());
             })
 
             console.log(expresiones);
-            return;
+            
             const significados = $(".m").text();
             const regEx = new RegExp(".?[0-9]. expr", "g");
 
             let definitions: string[] = [];
-            if (results) {
+            /*if (results) {
                 definitions = results.split(regEx).splice(1);
 
                 console.log("Results:", definitions);
@@ -65,7 +65,7 @@ export async function getExpressions(event: any) {
             }
             else {
                 event.reply("error: expresion con esa palabra no se ha encontrado.");
-            }
+            }*/
         })
         .catch(console.error);
 }
