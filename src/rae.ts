@@ -51,27 +51,25 @@ export async function getExpressions(event: any) {
                 significados.push($(e).text());
             });
 
-            const entradas: string[] = [];
-
             expresiones.forEach((expresion) => {
                 event.reply(expresion);
                 let found = false;
+                let result = "";
 
                 for(let i = 0; i < significados.length; i++) {
-                    const entrada = significados.pop();
-                    if(!entrada) return;
+                    const entrada = significados[0];
                     if (entrada[0] === "1" && !found) {
                         found = true;
-                        event.reply(entrada);
+                        result += significados.shift();
                     }
                     else if (entrada[0] === "1" && found) {
                         break;
                     }
                     else {
-                        event.reply(entrada);
+                        result += ", " + significados.shift();
                     }
-                    
                 }
+                event.reply(result);
             });
 
             console.log(expresiones);
