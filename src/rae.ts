@@ -41,7 +41,15 @@ export async function getExpressions(event: any) {
             const html = response.data;
 
             const $ = cheerio.load(html);
-            const results = $(".j").text() + $(".j2").text();
+            const expresiones: string[] = []
+
+            $(".k6").each(() => {
+                expresiones.push($.text());
+            })
+
+            console.log(expresiones);
+            return;
+            const significados = $(".m").text();
             const regEx = new RegExp(".?[0-9]. expr", "g");
 
             let definitions: string[] = [];
