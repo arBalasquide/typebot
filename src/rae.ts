@@ -48,6 +48,8 @@ export async function getExpressions(event: any) {
             if (results) {
                 definitions = results.split(regEx).splice(1);
 
+                console.log("Results:", definitions);
+
                 for (let i = 0; i < definitions.length; i++) {
                     event.reply(definitions[i]);
                     if (i >= MAX_ENTRIES - 1) break;
