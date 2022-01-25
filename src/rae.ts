@@ -55,39 +55,32 @@ export async function getExpressions(event: any) {
                 event.reply(expresion);
                 let found = false;
                 let result = "";
+                let count = 0;
 
                 for(let i = 0; i < significados.length; i++) {
-                    const entrada = significados[0];
+                    const entrada = significados[i];
                     if (entrada[0] === "1" && !found) {
                         found = true;
-                        result += significados.shift();
+                        result += entrada;
+                        count++;
                     }
                     else if (entrada[0] === "1" && found) {
                         break;
                     }
                     else {
-                        result += ", " + significados.shift();
+                        result += ", " + entrada;
+                        count++;
                     }
                 }
+
+                // im so tired
+                while(count) {
+                    significados.shift();
+                    count--;
+                }
+                
                 event.reply(result);
             });
-
-            console.log(expresiones);
-            const regEx = new RegExp(".?[0-9]. expr", "g");
-
-            /*if (results) {
-                definitions = results.split(regEx).splice(1);
-
-                console.log("Results:", definitions);
-
-                for (let i = 0; i < definitions.length; i++) {
-                    event.reply(definitions[i]);
-                    if (i >= MAX_ENTRIES - 1) break;
-                }
-            }
-            else {
-                event.reply("error: expresion con esa palabra no se ha encontrado.");
-            }*/
         })
         .catch(console.error);
 }
