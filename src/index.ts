@@ -53,7 +53,10 @@ bot.on("message", (event: any) => {
             event.reply(definitions[i]);
             if (i >= MAX_ENTRIES - 1) break;
           }
-        }
+	}
+	else {
+	   event.reply("error: palabra no está en el diccionario.");
+	}
       })
       .catch(console.error);
   }
