@@ -41,18 +41,41 @@ export async function getExpressions(event: any) {
             const html = response.data;
 
             const $ = cheerio.load(html);
-            const expresiones: string[] = []
+            const expresiones: string[] = [];
+            const significados: string[] = [];
 
             $(".k6").each((_, e) => {
                 expresiones.push($(e).text());
-            })
+            });
+            $(".m").each((_, e) => {
+                significados.push($(e).text());
+            });
+
+            const entradas: string[] = [];
+
+            expresiones.forEach((expresion) => {
+                event.reply(expresion);
+                let found = false;
+
+                for(let i = 0; i < significados.length; i++) {
+                    const entrada = significados[i];
+                    if (entrada[0] === "1" && !found) {
+                        found = true;
+                        event.reply(entrada);
+                    }
+                    else if (entrada[0] === "1" && found) {
+                        break;
+                    }
+                    else {
+                        event.reply(entrada);
+                    }
+                    
+                }
+            });
 
             console.log(expresiones);
-            
-            const significados = $(".m").text();
             const regEx = new RegExp(".?[0-9]. expr", "g");
 
-            let definitions: string[] = [];
             /*if (results) {
                 definitions = results.split(regEx).splice(1);
 
