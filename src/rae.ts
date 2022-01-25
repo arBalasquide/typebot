@@ -43,8 +43,8 @@ export async function getExpressions(event: any) {
             const $ = cheerio.load(html);
             const expresiones: string[] = []
 
-            $(".k6").each(() => {
-                expresiones.push($().text());
+            $(".k6").each((_, e) => {
+                expresiones.push($(e).text());
             })
 
             console.log(expresiones);
